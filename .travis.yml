@@ -1,0 +1,9 @@
+language: objective-c
+os: osx
+osx_image: xcode9.1
+before_install:
+ - brew install node
+ - brew install watchman
+ - npm install -g react-native-cli
+install:
+ - xcodebuild clean build -scheme tapsafe
