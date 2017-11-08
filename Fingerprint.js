@@ -4,24 +4,13 @@ import React from 'react';
 import { Text, View, Vibration, Image } from 'react-native';
 import RNFingerprint from 'react-native-fingerprint';
 
-export default class Fingerprint extends React.Component {
-    state: {
-        msg: string,
-        err: boolean
-    }
-    props: {
-        onmatch: Function
-    }
+export default class Fingerprint extends React.Component<{onmatch: Function}, {msg: string, err: boolean}> {
+    state = {
+        msg: "You need to use Fingerprint unlocking to use this App.",
+        err: false
+    };
 
-    constructor(props: {onmatch: Function}) {
-        super(props);
-        this.state = {
-            msg: "You need to use Fingerprint unlocking to use this App.",
-            err: false
-        };
-    }
-
-    onFingerprint(result:boolean) {
+    onFingerprint(result: boolean) {
         if(result) {
             this.props.onmatch(result);
         } else {
@@ -32,8 +21,7 @@ export default class Fingerprint extends React.Component {
 
 
     componentDidMount() {
-        console.log("fp dm");
-        RNFingerprint.hasEnrolledFingerprints().then(enrolled => {
+        RNFingerprint.hasEnrolledFingerprints().then(() => {
             this.setState({msg: "Please touch Fingerprint reader"});
             RNFingerprint.authenticate().then(result => this.onFingerprint(result));
             Vibration.vibrate(100);
@@ -41,7 +29,6 @@ export default class Fingerprint extends React.Component {
     }
 
     render() {
-        console.log("fp", this.state.msg);
         return (
             <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                 <Image source={require('./ic_fp_40px.png')}  style={{width: 40, height: 40, marginBottom: 10}} />

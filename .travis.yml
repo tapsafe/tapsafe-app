@@ -4,6 +4,7 @@ matrix:
     node_js: '8'
     script:
     - npm run flow
+    - npm run lint
     - npm test
     cache:
       directories:
@@ -16,7 +17,7 @@ matrix:
     install:
     - npm install
     script:
-    - xcodebuild build -sdk -project ios/tapsafe.xcodeproj -scheme tapsafeTests CODE_SIGNING_REQUIRED=NO
+    - xcodebuild build -project ios/tapsafe.xcodeproj -scheme tapsafeTests CODE_SIGNING_REQUIRED=NO
     cache:
       directories:
       - node_modules
@@ -25,7 +26,6 @@ matrix:
     - nvm install 8
     install:
     - npm install
-    - npm install -g react-native-cli
     android:
       components:
       - build-tools-23.0.1
@@ -36,6 +36,11 @@ matrix:
       - addon-google_apis-google-16
     script:
     - cd android && ./gradlew assembleRelease
+    before_cache:
+    - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+    - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
     cache:
       directories:
       - node_modules
+      - $HOME/.gradle/caches/
+      - $HOME/.gradle/wrapper/

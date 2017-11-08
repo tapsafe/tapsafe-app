@@ -3,11 +3,7 @@
 import React from 'react';
 import Camera from 'react-native-camera';
 
-export default class QR extends React.Component {
-    props: {
-        onmatch: Function
-    }
-
+export default class QR extends React.Component<{onmatch: Function}> {
     render() {
         return (
             <Camera
