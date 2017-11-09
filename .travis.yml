@@ -17,7 +17,7 @@ matrix:
     install:
     - npm install
     script:
-    - xcodebuild -project ios/tapsafe.xcodeproj -scheme tapsafe -configuration Release build -archivePath tapsafe.xcarchive archive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+    - xcodebuild -quiet -project ios/tapsafe.xcodeproj -scheme tapsafe -configuration Release build -archivePath tapsafe.xcarchive archive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
     cache:
       directories:
       - node_modules
